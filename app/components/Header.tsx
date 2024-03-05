@@ -2,7 +2,7 @@ import { NavLink, Link } from "@remix-run/react";
 
 const Header = () => {
   return (
-    <header className="bg-black text-white  py-5  border-t-8 border-teal-500">
+    <header className="  py-5  border-t-2 border-t-purple-600 border-b border-border">
       <div className="container flex justify-between">
         <Link to="/">
           <h1 className="uppercase font-bold">My blog</h1>
@@ -13,10 +13,10 @@ const Header = () => {
               <NavLink to="/about">About</NavLink>
             </li>
             <li>
-              <NavLink to="/services">Services</NavLink>
+              <NavLink to="/about/team">Team</NavLink>
             </li>
             <li>
-              <NavLink to="/contact">Contact</NavLink>
+              <NavLink to="about/services">Services</NavLink>
             </li>
           </ul>
         </nav>
