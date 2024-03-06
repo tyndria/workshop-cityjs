@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 
 export const loader: LoaderFunction = async () => {
   const posts = await prisma.post.findMany();
+
   return json({ posts });
 };
 
