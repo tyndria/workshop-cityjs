@@ -2,7 +2,7 @@ import { Form } from "@remix-run/react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
-const PostGenerator = () => {
+const PostGenerator = ({ setIsGenerating }) => {
   return (
     <div>
       <h1>Create a new post</h1>
@@ -29,7 +29,11 @@ const PostGenerator = () => {
             <Input type="text" name="language" placeholder="language" />
           </div>
           <input type="hidden" name="task" value="generate" />
-          <Button type="submit" value="submit">
+          <Button
+            type="submit"
+            value="submit"
+            onClick={() => setIsGenerating(true)}
+          >
             Generate
           </Button>
         </Form>

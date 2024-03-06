@@ -62,7 +62,7 @@ async function handleGenerate(formData: FormData) {
       ],
     },
   };
-  let data;
+  let post;
   try {
     const response = await fetch("https://api.langbase.com/beta/generate", {
       method: "POST",
@@ -77,8 +77,8 @@ async function handleGenerate(formData: FormData) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    data = await response.json();
-    console.log(data);
+    post = await response.json();
+    console.log(post);
   } catch (error) {
     console.error("Error submitting form:", error);
   }
@@ -92,7 +92,7 @@ async function handleGenerate(formData: FormData) {
   // });
 
   return json({
-    post: data,
+    post,
   });
 }
 
