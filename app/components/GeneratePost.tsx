@@ -23,7 +23,15 @@ const CreatePost = () => {
             <Input type="text" name="keywords" placeholder="Keywords" />
             <Input type="text" name="length" placeholder="Length" />
           </div>
-          <Input type="text" name="targetReader" placeholder="Target Reader" />
+          <div className="flex space-x-3">
+            <Input
+              type="text"
+              name="targetReader"
+              placeholder="Target Reader"
+            />
+            <Input type="text" name="language" placeholder="language" />
+          </div>
+          <input type="hidden" name="task" value="generate" />
           <Button type="submit" value="submit">
             Generate
           </Button>

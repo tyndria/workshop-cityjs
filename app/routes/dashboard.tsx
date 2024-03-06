@@ -17,8 +17,30 @@ export const loader: LoaderFunction = async () => {
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  const { subject, style, tone, purpose, keywords, length, targetReader } =
-    Object.fromEntries(formData.entries());
+  const task = formData.get("task");
+
+  switch (task) {
+    case "generate":
+      return handleGenerate(formData);
+    case "edit":
+      // Handle your edit task here
+      break;
+    default:
+      throw new Error(`Invalid task: ${task}`);
+  }
+};
+
+async function handleGenerate(formData: FormData) {
+  const {
+    subject,
+    style,
+    tone,
+    purpose,
+    keywords,
+    length,
+    targetReader,
+    language,
+  } = Object.fromEntries(formData.entries());
 
   const payload = {
     prompt: {
@@ -36,6 +58,7 @@ export const action: ActionFunction = async ({ request }) => {
         { name: "length", value: length },
         { name: "subject", value: subject },
         { name: "targetReader", value: targetReader },
+        { name: "language", value: language },
       ],
     },
   };
@@ -71,7 +94,7 @@ export const action: ActionFunction = async ({ request }) => {
   return json({
     post: data,
   });
-};
+}
 
 const Blog = () => {
   const { posts } = useLoaderData();
