@@ -9,6 +9,7 @@ async function main() {
     {
       title: "Introduction to AI",
       content: loremIpsum({ count: 4, units: "paragraphs" }),
+      published: true,
     },
     {
       title: "Getting started with Remix",
@@ -55,6 +56,7 @@ async function main() {
       data: {
         ...post,
         slug: slug,
+        published: true,
       },
     });
   }
