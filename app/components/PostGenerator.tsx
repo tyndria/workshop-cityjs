@@ -1,11 +1,8 @@
-import { Form, useActionData } from "@remix-run/react";
-import { Editor } from "@tinymce/tinymce-react";
-import { Input } from "~/components/ui/input";
-import { Button } from "~/components/ui/button";
+import { Form } from "@remix-run/react";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
-const CreatePost = () => {
-  const data = useActionData();
-
+const PostGenerator = () => {
   return (
     <div>
       <h1>Create a new post</h1>
@@ -36,20 +33,9 @@ const CreatePost = () => {
             Generate
           </Button>
         </Form>
-        <Input type="text" value={data?.post.title} />
-        <Editor
-          apiKey="megl6butiqhm3whiwmspl4igyb05ob2u5zke3i53jduwwma6"
-          value={data?.post.content}
-        />
       </div>
-      {data?.post && (
-        <>
-          <h1>{data?.post.title}</h1>
-          <div dangerouslySetInnerHTML={{ __html: data.post.content }} />
-        </>
-      )}
     </div>
   );
 };
 
-export default CreatePost;
+export default PostGenerator;

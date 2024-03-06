@@ -5,7 +5,7 @@ import {
   type ActionFunction,
 } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import GeneratePost from "~/components/GeneratePost";
+import PostOperations from "~/components/PostOperations";
 
 const prisma = new PrismaClient();
 
@@ -115,7 +115,7 @@ const Blog = () => {
         ))}
       </div>
       <div className="border border-border p-10 w-full">
-        <GeneratePost />
+        <PostOperations />
       </div>
     </div>
   );
