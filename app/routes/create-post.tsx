@@ -1,4 +1,4 @@
-import { type ActionFunction, redirect, json } from "@remix-run/node";
+import { type ActionFunction, json } from "@remix-run/node";
 import { Form, useActionData } from "@remix-run/react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Input } from "~/components/ui/input";

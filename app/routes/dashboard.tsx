@@ -1,7 +1,11 @@
 import { PrismaClient } from "@prisma/client";
-import { LoaderFunction, json } from "@remix-run/node";
+import {
+  type LoaderFunction,
+  json,
+  type ActionFunction,
+} from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
-import { Button } from "~/components/ui/button";
+import GeneratePost from "~/components/GeneratePost";
 
 const prisma = new PrismaClient();
 
@@ -9,6 +13,64 @@ export const loader: LoaderFunction = async () => {
   const posts = await prisma.post.findMany();
 
   return json({ posts });
+};
+
+export const action: ActionFunction = async ({ request }) => {
+  const formData = await request.formData();
+  const { subject, style, tone, purpose, keywords, length, targetReader } =
+    Object.fromEntries(formData.entries());
+
+  const payload = {
+    prompt: {
+      messages: [
+        {
+          role: "system",
+          content: "Generate content based on the following parameters.",
+        },
+      ],
+      variables: [
+        { name: "style", value: style },
+        { name: "tone", value: tone },
+        { name: "purpose", value: purpose },
+        { name: "keywords", value: keywords },
+        { name: "length", value: length },
+        { name: "subject", value: subject },
+        { name: "targetReader", value: targetReader },
+      ],
+    },
+  };
+  let data;
+  try {
+    const response = await fetch("https://api.langbase.com/beta/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer cee91a08-db3a-467e-aad4-67bca954b078",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error("Error submitting form:", error);
+  }
+
+  // save post to database
+  // await prisma.post.create({
+  //   data: {
+  //     title: data.title,
+  //     content: data.content,
+  //   },
+  // });
+
+  return json({
+    post: data,
+  });
 };
 
 const Blog = () => {
@@ -30,7 +92,7 @@ const Blog = () => {
         ))}
       </div>
       <div className="border border-border p-10 w-full">
-        <Button className="uppercase">Create Post</Button>
+        <GeneratePost />
       </div>
     </div>
   );
