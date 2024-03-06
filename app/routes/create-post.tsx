@@ -82,7 +82,10 @@ const CreatePost = () => {
             Submit
           </Button>
         </Form>
-        <Editor apiKey="megl6butiqhm3whiwmspl4igyb05ob2u5zke3i53jduwwma6" />
+        <Editor
+          apiKey="megl6butiqhm3whiwmspl4igyb05ob2u5zke3i53jduwwma6"
+          value={data?.post.content}
+        />
       </div>
       {data?.post && (
         <>
