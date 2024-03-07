@@ -2,9 +2,10 @@ import { Form } from "@remix-run/react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const EditPost = ({ post }) => {
+  const [title, setTitle] = useState(post.title);
   const editorRef = useRef(null);
   const headlineRef = useRef(null);
   const log = () => {
@@ -16,14 +17,23 @@ const EditPost = ({ post }) => {
     }
   };
 
+  useEffect(() => {
+    setTitle(post.title);
+  }, [post.title]);
+
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
+
   return (
     <div>
       <h1>Edit your post</h1>
       <Form method="post" action="/dashboard" className="space-y-5">
         <Input
           type="text"
-          value={post.title}
+          value={title}
           name="headline"
+          onChange={handleTitleChange}
           ref={headlineRef}
         />
         <Editor
