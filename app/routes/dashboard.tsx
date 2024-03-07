@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import slugify from "slugify";
 import {
   type LoaderFunction,
   json,
@@ -23,12 +24,37 @@ export const action: ActionFunction = async ({ request }) => {
     case "generate":
       return handleGenerate(formData);
     case "edit":
-      // Handle your edit task here
-      break;
+      return handleEdit(formData);
     default:
       throw new Error(`Invalid task: ${task}`);
   }
 };
+
+async function handleEdit(formData: FormData) {
+  const headline = formData.get("headline");
+  const content = formData.get("content");
+  const postId = formData.get("id");
+  console.log("content", content);
+
+  let post;
+  const slug = slugify(headline, { lower: true });
+  try {
+    post = await prisma.post.update({
+      where: { id: postId },
+      data: {
+        title: String(headline),
+        content: String(content),
+        slug: String(slug),
+      },
+    });
+    console.log(`Published post: ${post.title}`);
+  } catch (error) {
+    console.error("Error publishing post:", error);
+  }
+  return json({
+    post,
+  });
+}
 
 async function handleGenerate(formData: FormData) {
   const {
@@ -78,18 +104,21 @@ async function handleGenerate(formData: FormData) {
     }
 
     post = await response.json();
+    //if post is not null, then save it to database
+    if (post) {
+      const slug = slugify(post.headline, { lower: true });
+      await prisma.post.create({
+        data: {
+          title: String(post.headline),
+          content: String(post.content),
+          slug: String(slug),
+        },
+      });
+    }
     console.log(post);
   } catch (error) {
     console.error("Error submitting form:", error);
   }
-
-  // save post to database
-  // await prisma.post.create({
-  //   data: {
-  //     title: data.title,
-  //     content: data.content,
-  //   },
-  // });
 
   return json({
     post,
