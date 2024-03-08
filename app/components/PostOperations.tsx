@@ -18,7 +18,6 @@ const PostOperations = () => {
 
   return (
     <div>
-      {isGenerating && <Spinner />}
       {!isGenerating && data?.post ? (
         <EditPost post={lastPostPublished} />
       ) : (
@@ -26,6 +25,7 @@ const PostOperations = () => {
           <PostGenerator setIsGenerating={setIsGenerating} />
         </>
       )}
+      {isGenerating && <Spinner />}
 
       {data?.post && (
         <>

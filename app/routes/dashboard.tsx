@@ -34,7 +34,7 @@ async function handleEdit(formData: FormData) {
   const headline = formData.get("headline");
   const content = formData.get("content");
   const postId = formData.get("id");
-  console.log("content", content);
+  console.log("content edited", content);
 
   let post;
   const slug = slugify(headline, { lower: true });
@@ -115,7 +115,7 @@ async function handleGenerate(formData: FormData) {
         },
       });
     }
-    console.log(post);
+    console.log("post created", post);
   } catch (error) {
     console.error("Error submitting form:", error);
   }

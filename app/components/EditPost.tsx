@@ -6,6 +6,7 @@ import { useRef, useState, useEffect } from "react";
 
 const EditPost = ({ post }) => {
   const [title, setTitle] = useState(post.title);
+  const [content, setContent] = useState(post.content);
   const editorRef = useRef(null);
   const headlineRef = useRef(null);
   const log = () => {
@@ -19,9 +20,14 @@ const EditPost = ({ post }) => {
 
   useEffect(() => {
     setTitle(post.title);
-  }, [post.title]);
+    setContent(post.content);
+  }, [post.title, post.content]);
 
   const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
+
+  const handleContentChange = (event) => {
     setTitle(event.target.value);
   };
 
@@ -40,6 +46,7 @@ const EditPost = ({ post }) => {
           onInit={(evt, editor) => (editorRef.current = editor)}
           apiKey="megl6butiqhm3whiwmspl4igyb05ob2u5zke3i53jduwwma6"
           initialValue={post.content}
+          onChange={handleContentChange}
           init={{
             height: 500,
             menubar: false,
