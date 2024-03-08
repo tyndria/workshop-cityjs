@@ -11,7 +11,7 @@ export const loader: LoaderFunction = async () => {
 };
 
 const Blog = () => {
-  const { posts } = useLoaderData();
+  const { posts } = useLoaderData() || {};
 
   return (
     <div className="max-w-sm mx-auto">

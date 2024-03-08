@@ -1,4 +1,4 @@
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import slugify from "slugify";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
@@ -85,9 +85,10 @@ export async function handleGenerate(formData: FormData) {
     console.error("Error submitting form:", error);
   }
 
-  return json({
-    post,
-  });
+  // return json({
+  //   post,
+  // });
+  return redirect("/edit-post");
 }
 
 export async function handleEdit(formData: FormData) {

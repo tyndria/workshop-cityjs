@@ -1,7 +1,16 @@
-import { ActionFunction } from "@remix-run/node";
-import { useActionData, useLocation } from "@remix-run/react";
+import { PrismaClient } from "@prisma/client";
+import { ActionFunction, LoaderFunction, json } from "@remix-run/node";
+import { useActionData, useLoaderData, useLocation } from "@remix-run/react";
 import EditPost from "~/components/EditPost";
 import { handleEdit } from "~/lib/utils/actionFunctions";
+
+const prisma = new PrismaClient();
+
+export const loader: LoaderFunction = async () => {
+  const posts = await prisma.post.findMany();
+  const lastPublishedPost = posts[posts.length - 1];
+  return json({ lastPublishedPost });
+};
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -11,10 +20,10 @@ export const action: ActionFunction = async ({ request }) => {
 const EditPostRoute = () => {
   const location = useLocation();
   let { post } = location.state || {};
-  console.log("action", useActionData());
+  const { lastPublishedPost } = useLoaderData();
   const actionData = useActionData();
   const editedPost = actionData?.post;
-  post = post || editedPost;
+  post = post || editedPost || lastPublishedPost;
 
   return (
     <>
