@@ -9,7 +9,7 @@ const PostOperations = () => {
   const data = useActionData();
   const { posts } = useLoaderData();
   const lastPostPublished = posts[posts.length - 1];
-  console.log("lastPost", lastPostPublished);
+
   const [isGenerating, setIsGenerating] = useState(false);
 
   useEffect(() => {

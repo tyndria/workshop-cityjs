@@ -9,14 +9,6 @@ const EditPost = ({ post }) => {
   const [content, setContent] = useState(post.content);
   const editorRef = useRef(null);
   const headlineRef = useRef(null);
-  const log = () => {
-    if (editorRef.current) {
-      console.log("editor log", editorRef.current.getContent());
-    }
-    if (headlineRef.current) {
-      console.log("headline log", headlineRef.current.value);
-    }
-  };
 
   useEffect(() => {
     setTitle(post.title);
@@ -72,9 +64,7 @@ const EditPost = ({ post }) => {
         />
 
         <input type="hidden" name="task" value="edit" />
-        <Button type="submit" onClick={log}>
-          Update
-        </Button>
+        <Button type="submit">Update</Button>
       </Form>
     </div>
   );
