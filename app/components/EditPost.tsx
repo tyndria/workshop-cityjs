@@ -6,14 +6,12 @@ import { useRef, useState, useEffect } from "react";
 
 const EditPost = ({ post }) => {
   const [title, setTitle] = useState(post.title);
-  const [content, setContent] = useState(post.content);
   const editorRef = useRef(null);
   const headlineRef = useRef(null);
 
   useEffect(() => {
     setTitle(post.title);
-    setContent(post.content);
-  }, [post.title, post.content]);
+  }, [post.title]);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -46,7 +44,6 @@ const EditPost = ({ post }) => {
           name="content"
           value={editorRef?.current?.getContent()}
         />
-
         <input type="hidden" name="task" value="edit" />
         <Button type="submit">Update</Button>
       </Form>

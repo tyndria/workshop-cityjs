@@ -11,6 +11,7 @@ const PostOperations = () => {
   const lastPostPublished = posts[posts.length - 1];
 
   const [isGenerating, setIsGenerating] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
 
   useEffect(() => {
     data?.post && setIsGenerating(false);
