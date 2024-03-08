@@ -2,7 +2,8 @@ import { PrismaClient } from "@prisma/client";
 import { ActionFunction, LoaderFunction, json } from "@remix-run/node";
 import { useActionData, useLoaderData, useLocation } from "@remix-run/react";
 import EditPost from "~/components/EditPost";
-import { handleEdit } from "~/lib/utils/actionFunctions";
+import PublishButton from "~/components/PublishButton";
+import { handleEdit, handlePublish } from "~/lib/utils/actionFunctions";
 
 const prisma = new PrismaClient();
 
@@ -14,7 +15,15 @@ export const loader: LoaderFunction = async () => {
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
-  return handleEdit(formData);
+  const task = formData.get("task");
+  switch (task) {
+    case "edit":
+      return handleEdit(formData);
+    case "publish":
+      return handlePublish(formData);
+    default:
+      throw new Error(`Unknown task: ${task}`);
+  }
 };
 
 const EditPostRoute = () => {
@@ -36,6 +45,7 @@ const EditPostRoute = () => {
             <h1>Preview</h1>
             <h1>{post.title}</h1>
             <div dangerouslySetInnerHTML={{ __html: post.content }} />
+            <PublishButton post={post} />
           </div>
         </div>
       ) : (

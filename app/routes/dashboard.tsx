@@ -1,18 +1,20 @@
 import { PrismaClient } from "@prisma/client";
-import slugify from "slugify";
+
 import {
   type LoaderFunction,
   json,
   type ActionFunction,
 } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import PostOperations from "~/components/PostOperations";
 import PostListItem from "~/components/PostListItem";
 import {
   handleDelete,
   handleGenerate,
   handleEdit,
 } from "~/lib/utils/actionFunctions";
+import Spinner from "~/components/Spinner";
+import PostGenerator from "~/components/PostGenerator";
+import { useState } from "react";
 
 const prisma = new PrismaClient();
 
@@ -41,6 +43,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 const Blog = () => {
   const { posts } = useLoaderData();
+  const [isGenerating, setIsGenerating] = useState(false);
 
   return (
     <div className="flex justify-between gap-5">
@@ -51,7 +54,8 @@ const Blog = () => {
         ))}
       </div>
       <div className="border border-border p-10 w-full">
-        <PostOperations />
+        <PostGenerator setIsGenerating={setIsGenerating} />
+        {isGenerating && <Spinner />}
       </div>
     </div>
   );

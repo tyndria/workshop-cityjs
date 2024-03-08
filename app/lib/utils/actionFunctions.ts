@@ -85,9 +85,6 @@ export async function handleGenerate(formData: FormData) {
     console.error("Error submitting form:", error);
   }
 
-  // return json({
-  //   post,
-  // });
   return redirect("/edit-post");
 }
 
@@ -115,4 +112,33 @@ export async function handleEdit(formData: FormData) {
   return json({
     post,
   });
+}
+
+export async function handlePublish(formData: FormData) {
+  const postId = formData.get("id");
+  console.log("post published", postId);
+
+  let post;
+  try {
+    // Fetch the current post
+    const currentPost = await prisma.post.findUnique({
+      where: { id: postId },
+    });
+
+    // Update the post with the opposite of its current published status
+    post = await prisma.post.update({
+      where: { id: postId },
+      data: {
+        published: !currentPost.published,
+      },
+    });
+    console.log(`Published post: ${post.title}`);
+  } catch (error) {
+    console.error("Error publishing post:", error);
+    // Redirect to the dashboard in case of error
+    return redirect("/dashboard");
+  }
+
+  // Redirect to the post's slug if it's published, otherwise redirect to the dashboard
+  return redirect(post.published ? `/${post.slug}` : "/dashboard");
 }
