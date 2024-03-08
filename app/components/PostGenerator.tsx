@@ -7,7 +7,7 @@ const PostGenerator = ({ setIsGenerating }) => {
     <div>
       <h1>Create a new post</h1>
       <div className="space-y-5">
-        <Form className="space-y-3" method="post" action="/dashboard">
+        <Form className="space-y-3" method="post">
           <div className="flex space-x-3">
             <Input type="text" name="subject" placeholder="Subject" />
             <Input type="text" placeholder="Style" />

@@ -59,7 +59,7 @@ export async function handleGenerate(formData: FormData) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer cee91a08-db3a-467e-aad4-67bca954b078",
+        Authorization: `Bearer ${process.env.LANGBASE_TOKEN}`,
       },
       body: JSON.stringify(payload),
     });

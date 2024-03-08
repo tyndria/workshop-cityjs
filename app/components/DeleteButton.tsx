@@ -3,7 +3,7 @@ import { XCircle } from "lucide-react";
 
 const DeleteButton = ({ postId }) => {
   return (
-    <Form method="post" action="/dashboard" className="flex items-center">
+    <Form method="post" className="flex items-center">
       <button
         type="submit"
         className="h-5 w-5 text-red-500 hover:text-red-300 transition duration-300"

@@ -26,7 +26,7 @@ const EditPost = ({ post }) => {
   return (
     <div>
       <h1>Edit your post</h1>
-      <Form method="post" action="/dashboard" className="space-y-5">
+      <Form method="post" className="space-y-5">
         <Input
           type="text"
           value={title}
@@ -39,22 +39,6 @@ const EditPost = ({ post }) => {
           apiKey="megl6butiqhm3whiwmspl4igyb05ob2u5zke3i53jduwwma6"
           initialValue={post.content}
           onChange={handleContentChange}
-          init={{
-            height: 500,
-            menubar: false,
-            plugins: [
-              "advlist autolink lists link image charmap print preview anchor",
-              "searchreplace visualblocks code fullscreen",
-              "insertdatetime media table paste code help wordcount",
-            ],
-            toolbar:
-              "undo redo | formatselect | " +
-              "bold italic backcolor | alignleft aligncenter " +
-              "alignright alignjustify | bullist numlist outdent indent | " +
-              "removeformat | help",
-            content_style:
-              "body { font-family:Helvetica,Arial,sans-serif; font-size:14px;color=white, background:# }",
-          }}
         />
         <input type="hidden" name="id" value={post.id} />
         <input
