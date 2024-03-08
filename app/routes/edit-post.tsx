@@ -37,7 +37,7 @@ const EditPostRoute = () => {
   return (
     <>
       {post ? (
-        <div className="flex justify-between gap-5">
+        <div className="flex flex-col md:flex-row justify-between gap-5">
           <div className="border border-border p-10 w-full">
             <EditPost post={post} />
           </div>

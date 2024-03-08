@@ -46,16 +46,16 @@ const Blog = () => {
   const [isGenerating, setIsGenerating] = useState(false);
 
   return (
-    <div className="flex justify-between gap-5">
-      <div className="border border-border p-10 w-full">
+    <div className="flex flex-col md:flex-row justify-between gap-5">
+      <div className="border border-border p-10 w-full ">
+        <PostGenerator setIsGenerating={setIsGenerating} />
+        {isGenerating && <Spinner />}
+      </div>
+      <div className="border border-border p-10 w-full ">
         <h1>Posts</h1>
         {posts.map((post) => (
           <PostListItem key={post.id} post={post} />
         ))}
-      </div>
-      <div className="border border-border p-10 w-full">
-        <PostGenerator setIsGenerating={setIsGenerating} />
-        {isGenerating && <Spinner />}
       </div>
     </div>
   );
