@@ -4,13 +4,18 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export async function handleDelete(formData: FormData) {
+  // Use as string to assert the type, but first check if it's not null
   const postId = formData.get("id");
+  if (postId === null) {
+    console.error("Post ID is null");
+    return; // Handle the null case appropriately, maybe return an error response
+  }
   console.log("post deleted", postId);
 
   let post;
   try {
     post = await prisma.post.delete({
-      where: { id: postId },
+      where: { id: postId as string }, // Asserting postId is a string
     });
     console.log(`Deleted post: ${post.title}`);
   } catch (error) {
@@ -89,9 +94,10 @@ export async function handleGenerate(formData: FormData) {
 }
 
 export async function handleEdit(formData: FormData) {
-  const headline = formData.get("headline");
-  const content = formData.get("content");
-  const postId = formData.get("id");
+  // Use type assertion to tell TypeScript that the values are strings.
+  const headline = formData.get("headline") as string;
+  const content = formData.get("content") as string;
+  const postId = formData.get("id") as string;
   console.log("content edited", content);
 
   let post;
@@ -100,9 +106,9 @@ export async function handleEdit(formData: FormData) {
     post = await prisma.post.update({
       where: { id: postId },
       data: {
-        title: String(headline),
-        content: String(content),
-        slug: String(slug),
+        title: headline,
+        content: content,
+        slug: slug,
       },
     });
     console.log(`Published post: ${post.title}`);
@@ -114,31 +120,47 @@ export async function handleEdit(formData: FormData) {
   });
 }
 
-export async function handlePublish(formData: FormData) {
-  const postId = formData.get("id");
+export async function handlePublish(
+  formData: FormData
+): Promise<void | ReturnType<typeof redirect>> {
+  const postIdValue = formData.get("id");
+  // Ensure postId is a string;
+  const postId =
+    postIdValue instanceof File
+      ? undefined
+      : (postIdValue as string | undefined);
   console.log("post published", postId);
 
-  let post;
+  if (!postId) {
+    console.error("Post ID is missing or invalid");
+    return redirect("/dashboard");
+  }
+
   try {
     // Fetch the current post
     const currentPost = await prisma.post.findUnique({
       where: { id: postId },
     });
 
+    if (!currentPost) {
+      console.error("Post not found");
+      return redirect("/dashboard");
+    }
+
     // Update the post with the opposite of its current published status
-    post = await prisma.post.update({
+    const post = await prisma.post.update({
       where: { id: postId },
       data: {
         published: !currentPost.published,
       },
     });
     console.log(`Published post: ${post.title}`);
+
+    // Redirect to the post's slug if it's published, otherwise redirect to the dashboard
+    return redirect(post.published ? `/${post.slug}` : "/dashboard");
   } catch (error) {
     console.error("Error publishing post:", error);
     // Redirect to the dashboard in case of error
     return redirect("/dashboard");
   }
-
-  // Redirect to the post's slug if it's published, otherwise redirect to the dashboard
-  return redirect(post.published ? `/${post.slug}` : "/dashboard");
 }

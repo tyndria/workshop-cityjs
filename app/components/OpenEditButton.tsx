@@ -1,6 +1,11 @@
 import { Button } from "./ui/button";
+import React from "react";
 
-const OpenEditButton = ({ setOpenEdit }) => {
+interface OpenEditButtonProps {
+  setOpenEdit: (value: boolean) => void;
+}
+
+const OpenEditButton: React.FC<OpenEditButtonProps> = ({ setOpenEdit }) => {
   return <Button onClick={() => setOpenEdit(true)}>Edit</Button>;
 };
 

@@ -1,7 +1,8 @@
 import { Link } from "@remix-run/react";
 import DeleteButton from "./DeleteButton";
+import { PostType } from "~/types";
 
-const PostListItem = ({ post }) => {
+const PostListItem = ({ post }: { post: PostType }) => {
   return (
     <div className="flex gap-3 items-center align-middle">
       <h2 className="m-2">

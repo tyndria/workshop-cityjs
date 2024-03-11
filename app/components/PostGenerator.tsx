@@ -2,7 +2,11 @@ import { Form } from "@remix-run/react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
-const PostGenerator = ({ setIsGenerating }) => {
+interface PostGeneratorProps {
+  setIsGenerating: (isGenerating: boolean) => void;
+}
+
+const PostGenerator = ({ setIsGenerating }: PostGeneratorProps) => {
   return (
     <div>
       <h1>Create a new post</h1>

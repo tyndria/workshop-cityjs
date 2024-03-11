@@ -2,7 +2,7 @@ import { SpinnerCircularSplit } from "spinners-react";
 
 const Spinner = () => {
   return (
-    <div className="flex justify-center items-center w-full flex flex-col">
+    <div className="flex justify-center items-center w-full flex-col">
       <SpinnerCircularSplit
         size={61}
         thickness={141}

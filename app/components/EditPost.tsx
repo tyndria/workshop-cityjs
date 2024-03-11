@@ -8,8 +8,8 @@ import { PostType } from "~/types";
 const EditPost = ({ post }: { post: PostType }) => {
   const [title, setTitle] = useState(post.title);
   const [content, setContent] = useState(post.content);
-  const editorRef = useRef(null);
   const headlineRef = useRef(null);
+  const editorRef = useRef<Editor | null>(null);
 
   useEffect(() => {
     setTitle(post.title);
@@ -34,8 +34,8 @@ const EditPost = ({ post }: { post: PostType }) => {
           onInit={(evt, editor) => (editorRef.current = editor)}
           apiKey="megl6butiqhm3whiwmspl4igyb05ob2u5zke3i53jduwwma6"
           initialValue={post.content}
-          onEditorChange={(content) => {
-            setContent(content);
+          onEditorChange={(newContent) => {
+            setContent(newContent);
           }}
         />
         <input type="hidden" name="id" value={post.id} />

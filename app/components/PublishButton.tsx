@@ -1,7 +1,8 @@
 import { Form } from "@remix-run/react";
 import { Button } from "./ui/button";
+import { PostType } from "~/types";
 
-const PublishButton = ({ post }) => {
+const PublishButton = ({ post }: { post: PostType }) => {
   const published = post.published;
   return (
     <Form method="post">
