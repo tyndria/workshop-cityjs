@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { PostType } from "~/types";
 
 import {
   type LoaderFunction,
@@ -42,7 +43,8 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 const Blog = () => {
-  const { posts } = useLoaderData();
+  const data = useLoaderData();
+  const { posts } = data as { posts: PostType[] };
   const [isGenerating, setIsGenerating] = useState(false);
 
   return (
