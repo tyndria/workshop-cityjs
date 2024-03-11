@@ -57,7 +57,7 @@ export const action: ActionFunction = async ({ request }) => {
 };
 
 const CreatePost = () => {
-  const data = useActionData();
+  const data = useActionData<{ post?: { title: string; content: string } }>();
   console.log("data in actiondata", data);
 
   return (
@@ -84,12 +84,12 @@ const CreatePost = () => {
         </Form>
         <Editor
           apiKey="megl6butiqhm3whiwmspl4igyb05ob2u5zke3i53jduwwma6"
-          value={data?.post.content}
+          value={data?.post?.content ?? ""}
         />
       </div>
       {data?.post && (
         <>
-          <h1>{data?.post.title}</h1>
+          <h1>{data?.post?.title ?? ""}</h1>
           <div dangerouslySetInnerHTML={{ __html: data.post.content }} />
         </>
       )}

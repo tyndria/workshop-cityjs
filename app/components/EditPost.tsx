@@ -3,9 +3,11 @@ import { Editor } from "@tinymce/tinymce-react";
 import { Input } from "~/components/ui/input";
 import { Button } from "~/components/ui/button";
 import { useRef, useState, useEffect } from "react";
+import { PostType } from "~/types";
 
-const EditPost = ({ post }) => {
+const EditPost = ({ post }: { post: PostType }) => {
   const [title, setTitle] = useState(post.title);
+  const [content, setContent] = useState(post.content);
   const editorRef = useRef(null);
   const headlineRef = useRef(null);
 
@@ -13,11 +15,7 @@ const EditPost = ({ post }) => {
     setTitle(post.title);
   }, [post.title]);
 
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
-
-  const handleContentChange = (event) => {
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
   };
 
@@ -36,7 +34,9 @@ const EditPost = ({ post }) => {
           onInit={(evt, editor) => (editorRef.current = editor)}
           apiKey="megl6butiqhm3whiwmspl4igyb05ob2u5zke3i53jduwwma6"
           initialValue={post.content}
-          onChange={handleContentChange}
+          onEditorChange={(content) => {
+            setContent(content);
+          }}
         />
         <input type="hidden" name="id" value={post.id} />
         <input

@@ -1,7 +1,7 @@
 import { Form } from "@remix-run/react";
 import { XCircle } from "lucide-react";
 
-const DeleteButton = ({ postId }) => {
+const DeleteButton = ({ postId }: { postId: string }) => {
   return (
     <Form method="post" className="flex items-center">
       <button
