@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
+import Date from "../components/Date";
 
 const prisma = new PrismaClient();
 
@@ -22,6 +23,7 @@ const Post = () => {
   return (
     <div>
       <h1>{post.title}</h1>
+      <Date date={post.createdAt} />
       <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
     </div>
   );
