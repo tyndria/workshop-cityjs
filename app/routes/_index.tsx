@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { LoaderFunction, json } from "@remix-run/node";
 import { Link, useLoaderData } from "@remix-run/react";
+import type { PostType } from "~/types";
 
 const prisma = new PrismaClient();
 
@@ -20,7 +21,7 @@ export const loader: LoaderFunction = async () => {
 };
 
 const Blog = () => {
-  const { posts } = useLoaderData() || {};
+  const { posts } = useLoaderData<{ posts: PostType[] }>() || {};
 
   return (
     <div className="max-w-sm mx-auto">
