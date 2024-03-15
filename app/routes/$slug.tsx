@@ -1,11 +1,17 @@
 import { PrismaClient } from "@prisma/client";
-import { json } from "@remix-run/node";
+import { json, type MetaFunction } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import Date from "../components/Date";
+import { PostType } from "~/types";
 
 const prisma = new PrismaClient();
 
-export const loader = async ({ params }) => {
+interface LoaderParams {
+  params: {
+    slug: string;
+  };
+}
+export const loader = async ({ params }: LoaderParams) => {
   const { slug } = params;
 
   const post = await prisma.post.findUnique({
@@ -26,8 +32,15 @@ export const loader = async ({ params }) => {
   return json({ post });
 };
 
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Remix AI cms" },
+    { name: "description", content: "A simple cms powered by Remix and AI" },
+  ];
+};
+
 const Post = () => {
-  const { post } = useLoaderData();
+  const { post }: { post: PostType } = useLoaderData();
 
   return (
     <div>

@@ -5,6 +5,6 @@ export interface PostType {
   content: string;
   description: string;
   published: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
 }
