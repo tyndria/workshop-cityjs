@@ -6,18 +6,18 @@ import type { PostType } from "~/types";
 const prisma = new PrismaClient();
 
 export const loader: LoaderFunction = async () => {
-  const posts = await prisma.post.findMany();
-  const publishedPosts = posts
-    .filter((post) => post.published)
-    .map((post) => {
-      return {
-        id: post.id,
-        title: post.title,
-        slug: post.slug,
-      };
-    });
+  const posts = await prisma.post.findMany({
+    where: {
+      published: true,
+    },
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+    },
+  });
 
-  return json({ posts: publishedPosts });
+  return json({ posts });
 };
 
 const Blog = () => {

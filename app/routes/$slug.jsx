@@ -12,6 +12,11 @@ export const loader = async ({ params }) => {
     where: {
       slug,
     },
+    select: {
+      title: true,
+      content: true,
+      createdAt: true,
+    },
   });
 
   if (!post) {
