@@ -14,6 +14,10 @@ export const loader = async ({ params }) => {
     },
   });
 
+  if (!post) {
+    throw new Response("Post does not exist", { status: 404 });
+  }
+
   return json({ post });
 };
 
