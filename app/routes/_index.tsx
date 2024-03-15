@@ -6,7 +6,16 @@ const prisma = new PrismaClient();
 
 export const loader: LoaderFunction = async () => {
   const posts = await prisma.post.findMany();
-  const publishedPosts = posts.filter((post) => post.published);
+  const publishedPosts = posts
+    .filter((post) => post.published)
+    .map((post) => {
+      return {
+        id: post.id,
+        title: post.title,
+        slug: post.slug,
+      };
+    });
+
   return json({ posts: publishedPosts });
 };
 
