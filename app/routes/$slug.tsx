@@ -32,10 +32,10 @@ export const loader = async ({ params }: LoaderParams) => {
   return json({ post });
 };
 
-export const meta: MetaFunction = () => {
+export const meta: MetaFunction = ({ data }) => {
   return [
-    { title: "Remix AI cms" },
-    { name: "description", content: "A simple cms powered by Remix and AI" },
+    { title: data.post.title },
+    { name: "description", content: data.post.content.substring(0, 100) },
   ];
 };
 
