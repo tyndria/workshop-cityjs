@@ -74,6 +74,7 @@ export async function handleGenerate(formData: FormData) {
     }
 
     post = await response.json();
+
     //if post is not null, then save it to database
     if (post) {
       const slug = slugify(post.headline, { lower: true });
@@ -82,10 +83,10 @@ export async function handleGenerate(formData: FormData) {
           title: String(post.headline),
           content: String(post.content),
           slug: String(slug),
+          description: String(post.description),
         },
       });
     }
-    console.log("post created", post);
   } catch (error) {
     console.error("Error submitting form:", error);
   }

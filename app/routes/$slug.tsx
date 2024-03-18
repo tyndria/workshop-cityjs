@@ -22,6 +22,7 @@ export const loader = async ({ params }: LoaderParams) => {
       title: true,
       content: true,
       createdAt: true,
+      description: true,
     },
   });
 
@@ -35,7 +36,7 @@ export const loader = async ({ params }: LoaderParams) => {
 export const meta: MetaFunction = ({ data }) => {
   return [
     { title: data.post.title },
-    { name: "description", content: data.post.content.substring(0, 100) },
+    { name: "description", content: data.post.description },
   ];
 };
 
