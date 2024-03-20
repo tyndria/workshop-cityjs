@@ -58,6 +58,8 @@ export async function handleGenerate(formData: FormData) {
       ],
     },
   };
+  console.log("payload", JSON.stringify(payload));
+
   let post;
   try {
     const response = await fetch("https://api.langbase.com/beta/generate", {
