@@ -38,7 +38,13 @@ export async function handleGenerate(formData: FormData) {
     language,
   } = Object.fromEntries(formData.entries());
 
-  const prompt = `Generate content based on the following parameters: style=${style}, tone=${tone}, purpose=${purpose}, keywords=${keywords}, length=${length}, subject=${subject}, targetReader=${targetReader}, language=${language}`;
+  const prompt = `Generate content based on the following parameters: style=${
+    style || "informational"
+  }, tone=${tone || "educative"}, purpose=${purpose || "educate"}, keywords=${
+    keywords || ""
+  }, length=${length || 100}, subject=${subject || "remix"}, targetReader=${
+    targetReader || " web developer"
+  }, language=${language || "english"}`;
 
   const payload = {
     prompt,

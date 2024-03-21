@@ -20,8 +20,6 @@ export const loader: LoaderFunction = async () => {
     },
   });
 
-  console.log("posts", posts);
-
   const lastPublishedPost = posts[0] || {};
   return json({ lastPublishedPost });
 };

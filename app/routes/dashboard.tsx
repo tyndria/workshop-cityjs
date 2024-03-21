@@ -8,11 +8,7 @@ import {
 } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import PostListItem from "~/components/PostListItem";
-import {
-  handleDelete,
-  handleGenerate,
-  handleEdit,
-} from "~/lib/utils/actionFunctions";
+import { handleDelete, handleGenerate } from "~/lib/utils/actionFunctions";
 import Spinner from "~/components/Spinner";
 import PostGenerator from "~/components/PostGenerator";
 import { useState } from "react";
@@ -37,8 +33,6 @@ export const action: ActionFunction = async ({ request }) => {
   switch (task) {
     case "generate":
       return handleGenerate(formData);
-    case "edit":
-      return handleEdit(formData);
     case "delete":
       return handleDelete(formData);
     default:
