@@ -38,25 +38,10 @@ export async function handleGenerate(formData: FormData) {
     language,
   } = Object.fromEntries(formData.entries());
 
+  const prompt = `Generate content based on the following parameters: style=${style}, tone=${tone}, purpose=${purpose}, keywords=${keywords}, length=${length}, subject=${subject}, targetReader=${targetReader}, language=${language}`;
+
   const payload = {
-    prompt: {
-      messages: [
-        {
-          role: "system",
-          content: "Generate content based on the following parameters.",
-        },
-      ],
-      variables: [
-        { name: "style", value: style },
-        { name: "tone", value: tone },
-        { name: "purpose", value: purpose },
-        { name: "keywords", value: keywords },
-        { name: "length", value: length },
-        { name: "subject", value: subject },
-        { name: "targetReader", value: targetReader },
-        { name: "language", value: language },
-      ],
-    },
+    prompt,
   };
   console.log("payload", JSON.stringify(payload));
 

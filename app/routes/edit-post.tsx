@@ -8,8 +8,21 @@ import { handleEdit, handlePublish } from "~/lib/utils/actionFunctions";
 const prisma = new PrismaClient();
 
 export const loader: LoaderFunction = async () => {
-  const posts = await prisma.post.findMany();
-  const lastPublishedPost = posts[posts.length - 1];
+  const posts = await prisma.post.findMany({
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      content: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  console.log("posts", posts);
+
+  const lastPublishedPost = posts[0] || {};
   return json({ lastPublishedPost });
 };
 

@@ -7,6 +7,9 @@ const prisma = new PrismaClient();
 
 export const loader: LoaderFunction = async () => {
   const posts = await prisma.post.findMany({
+    orderBy: {
+      createdAt: "desc",
+    },
     where: {
       published: true,
     },
