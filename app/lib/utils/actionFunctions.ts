@@ -114,15 +114,9 @@ export async function handleEdit(formData: FormData) {
   });
 }
 
-export async function handlePublish(
-  formData: FormData
-): Promise<void | ReturnType<typeof redirect>> {
-  const postIdValue = formData.get("id");
-  // Ensure postId is a string;
-  const postId =
-    postIdValue instanceof File
-      ? undefined
-      : (postIdValue as string | undefined);
+export async function handlePublish(formData: FormData) {
+  const postId = formData.get("id") as string;
+
   console.log("post published", postId);
 
   if (!postId) {
