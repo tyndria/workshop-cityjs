@@ -38,36 +38,36 @@ export async function handleGenerate(formData: FormData) {
     language,
   } = Object.fromEntries(formData.entries());
 
-  // const prompt = `Generate content based on the following parameters: style=${
-  //   style || "informational"
-  // }, tone=${tone || "educative"}, purpose=${purpose || "educate"}, keywords=${
-  //   keywords || ""
-  // }, length=${length || 100}, subject=${subject || "remix"}, targetReader=${
-  //   targetReader || " web developer"
-  // }, language=${language || "english"}`;
-
-  const payload = {
-    messages: [
-      {
-        role: "user",
-        content: "Generate content based on the following parameters.",
-      },
-    ],
-    variables: [
-      { name: "style", value: style },
-      { name: "tone", value: tone },
-      { name: "purpose", value: purpose },
-      { name: "keywords", value: keywords },
-      { name: "length", value: length },
-      { name: "subject", value: subject },
-      { name: "targetReader", value: targetReader },
-      { name: "language", value: language },
-    ],
-  };
+  const prompt = `Generate content based on the following parameters: style=${
+    style || "informational"
+  }, tone=${tone || "educative"}, purpose=${purpose || "educate"}, keywords=${
+    keywords || ""
+  }, length=${length || 100}, subject=${subject || "remix"}, targetReader=${
+    targetReader || " web developer"
+  }, language=${language || "english"}`;
 
   // const payload = {
-  //   prompt,
+  //   messages: [
+  //     {
+  //       role: "user",
+  //       content: "Generate content based on the following parameters.",
+  //     },
+  //   ],
+  //   variables: [
+  //     { name: "style", value: style },
+  //     { name: "tone", value: tone },
+  //     { name: "purpose", value: purpose },
+  //     { name: "keywords", value: keywords },
+  //     { name: "length", value: length },
+  //     { name: "subject", value: subject },
+  //     { name: "targetReader", value: targetReader },
+  //     { name: "language", value: language },
+  //   ],
   // };
+
+  const payload = {
+    prompt,
+  };
   console.log("payload", JSON.stringify(payload));
 
   let post;
