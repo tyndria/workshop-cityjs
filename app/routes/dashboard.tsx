@@ -20,6 +20,13 @@ export const loader: LoaderFunction = async () => {
     orderBy: {
       createdAt: "desc",
     },
+
+    select: {
+      id: true,
+      title: true,
+      slug: true,
+      content: true,
+    },
   });
 
   return json({ posts });
