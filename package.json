@@ -24,6 +24,7 @@
     "isbot": "^4.1.0",
     "lorem-ipsum": "^2.0.8",
     "lucide-react": "^0.344.0",
+    "openai": "^4.32.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "remix-flat-routes": "^0.6.4",
