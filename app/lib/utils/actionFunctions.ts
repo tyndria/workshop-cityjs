@@ -57,17 +57,6 @@ export async function handleGenerate(formData: FormData) {
     ],
   };
 
-  // const prompt = `Generate content based on the following parameters: style=${
-  //   style || "informational"
-  // }, tone=${tone || "educative"}, purpose=${purpose || "educate"}, keywords=${
-  //   keywords || ""
-  // }, length=${length || 100}, subject=${subject || "remix"}, targetReader=${
-  //   targetReader || " web developer"
-  // }, language=${language || "english"}`;
-
-  // const payload = {
-  //   prompt,
-  // };
   console.log("payload", JSON.stringify(payload));
 
   let post;

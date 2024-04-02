@@ -39,7 +39,6 @@ export const action: ActionFunction = async ({ request }) => {
 
 const EditPostRoute = () => {
   const location = useLocation();
-  console.log("location", location);
   let { post } = location.state || {};
   const { lastPublishedPost } = useLoaderData();
   const actionData = useActionData();
