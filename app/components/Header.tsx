@@ -21,6 +21,9 @@ const Header = () => {
             <li>
               <NavLink to="dashboard">Dashboard</NavLink>
             </li>
+            <li>
+              <NavLink to="latest">Latest</NavLink>
+            </li>
           </ul>
         </nav>
       </div>
